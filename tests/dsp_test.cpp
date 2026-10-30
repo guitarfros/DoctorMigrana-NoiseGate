@@ -18,13 +18,15 @@ static int failures = 0;
     } while (0)
 
 static constexpr double fs = 48000.0;
+// M_PI non existe en MSVC (Windows) sen _USE_MATH_DEFINES: usamos a nosa constante
+static constexpr double kPi = 3.14159265358979323846;
 
 static std::vector<float> sine (double freq, double ampDb, int n)
 {
     std::vector<float> v ((size_t) n);
     const double a = std::pow (10.0, ampDb / 20.0);
     for (int i = 0; i < n; ++i)
-        v[(size_t) i] = (float) (a * std::sin (2.0 * M_PI * freq * i / fs));
+        v[(size_t) i] = (float) (a * std::sin (2.0 * kPi * freq * i / fs));
     return v;
 }
 
